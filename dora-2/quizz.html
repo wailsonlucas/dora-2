@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Better Mental Health Quiz</title>
+  <link rel="stylesheet" href="Quizz.css">
+</head>
+<body>
+  <header>
+    <div class="containerr">
+      <div class="brand">Better Mental Health</div>
+      <nav>
+        <ul>
+          <li><a href="accueil.html">Home</a></li>
+          <li><a href="ourservices.html">Our Services</a></li>
+          <li><a href="About Us.html">About Us</a></li>
+          <li><a href="Contact us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container">
+    <h1>Better Mental Health Quiz</h1>
+    <div id="question" class="question"></div>
+    <div id="options" class="options"></div>
+    <button id="nextButton" class="btn btn-primary">Next</button>
+    <button href="/dora-2/advice.html" id="router_to_advice" class="btn btn-primary">Go to Advice page</button>
+  </div>
+
+  <script>
+    let router_query = "" // we use this variable to store the final result and use it in advice.html page to hide specific html dom elements
+     // this varialble is used to store you 'Yes' answers from user to each entry, then we caluculate which entry has the most 'Yes' answers  :
+    let quiz_poll_data = {
+        social_phobia: 0,
+        Depresion: 0,
+        Anxiety: 0,
+        stress: 0
+    }
+
+    const quizData = [
+       //social phobia//
+        {
+            type:"social_phobia",
+            question: "Have you ever been in therapy before?",
+            options: ["Yes",  "No"],
+        },
+        { 
+            type:"social_phobia",
+            question: "Are you currently experiencing sadness, grief, or anxiety?",
+            options: ["Yes",  "No"],
+        }, 
+       
+        {
+            type:"social_phobia",
+            question: "Do you have trouble concentrating on your studies?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"social_phobia",
+            question: "Are you afraid of participating in public events?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"social_phobia",
+            question: "Are you afraid of being the focus of attention like giving a lecture?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"social_phobia",
+            question: "Are you eating or drinking in front of others?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"social_phobia",
+            question: "Are you currently experiencing redness of the face or rapid heartbeat?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"social_phobia",
+            question: "Are you currently experiencing heavy sweating or nausea ?",
+            options: ["Yes",  "No"],
+        },
+
+
+
+
+
+
+        //Depresion//
+        {
+            type:"Depresion",
+            question: "Are you experiencing tiredness or chest tightness ?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"Depresion",
+            question: "Are you experiencing loss of intrest and enjoyment ?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"Depresion",
+            question: "Do you have any of difficulty of concentrating or poor memory ?",
+            options: ["Yes",  "No"],
+        },
+        {
+            type:"Depresion",
+            question: "Do you have any of weight loss or increased  appetite?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Depresion",
+            question: "Do you have any of trouble falling asleep?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Depresion",
+            question: "Do you have  loss of sense of importance and usefulness?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Depresion",
+            question: "Do you have an unwillingness to laugh and joke?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Depresion",
+            question: "Do you have Irritability and jitter?",
+            options: ["Yes",  "No"],
+          },
+
+
+
+          // Anxiety//
+          {
+            type:"Anxiety",
+            question: "Have you experienced any significant changes in your mental health over the past few months?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Are you currently experiencing any symptoms of anxiety?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Have you experienced any significant changes in your mental health while being a student?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Are you part of any support groups or have access to peer support for mental health?",
+
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Are you satisfied with the level of support and guidance provided by your teachers or professors?",
+
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Do you engage in regular physical activity and maintain a healthy lifestyle?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Do you feel overwhelmed because of university?",
+
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"Anxiety",
+            question: "Do you often experience symptoms of racing heart, headaches, muscle pain, butterflies, or discomfort in the stomach?",
+            options: ["Yes",  "No"],
+          },
+
+
+          //stress//
+          {
+            type:"stress",
+            question: "Do the Transitioning To A New Environment made you stressful?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Are you getting worry about making time to study?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Have you sufferd from lack of organization?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Do you really participing in your class?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Have you sufferd from lack of support?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Do you have a unhealthy routine that keeps you  distracted on your studies?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Do you have an unhealthy sleeping habits?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Do you have any of Poor nutrition or unhealthy eating habits?",
+            options: ["Yes",  "No"],
+          },
+          {
+            type:"stress",
+            question: "Do you have any physical health problems?",
+            options: ["Yes",  "No"],
+          },
+           {
+            type:"stress",
+            question: "Do you Feeling isolated or homesick, especially for students  ?",
+            options: ["Yes",  "No"],
+          },
+        // Ajoutez plus de questions ici...
+    ];
+
+    let currentQuestion_index = 0 // we use this index to point to different entries
+
+    let currentQuestion = 0;
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    const nextButton = document.getElementById('nextButton');
+    const routeToAdviceBtn = document.getElementById('router_to_advice');
+
+    routeToAdviceBtn.addEventListener('click', () => change_route())
+
+
+    const option = document.getElementById('option');
+    console.log(option)
+ 
+    function change_route(){
+        console.log('change route')
+        window.history.pushState({}, '', `/dora-2/advice.html?entry=${router_query}`)
+        window.location.reload()
+    }
+
+    function loadQuestion() {
+        const currentQuizData = quizData[currentQuestion];
+        questionElement.textContent = currentQuizData.question;
+        optionsElement.innerHTML = '';
+        currentQuizData.options.forEach(option => {
+            const optionElement = document.createElement('div');
+            optionElement.innerHTML = `<label><input type="radio" id="option" name="option" value="${option}"> ${option}</label>`;
+            optionsElement.appendChild(optionElement);
+            
+        });
+    }
+
+     // this function will calculate the entry that has tho most 'Yes' answers
+    function calculate_entries(){
+       // this code iterate through quiz_poll_data will find which entry has the most 'Yes' answors
+      let start_value = 0
+      let final_entry = ""
+
+      for (let key in quiz_poll_data) {
+          if (quiz_poll_data[key] > start_value) {
+            final_entry = key;
+            start_value = quiz_poll_data[key];
+          }
+      }
+      router_query = final_entry
+      if(final_entry === "social_phobia") {
+          final_entry = "social phobia" // rename social_phobia to social phobia fro better UI if it was the most selected entry
+      }
+      return final_entry
+    }
+
+    function checkAnswer() {
+        const userAnswer = document.querySelector('input[name="option"]:checked');
+        // console.log(userAnswer)
+
+        let user_answer = userAnswer.value // the 'Yes' or 'No' answer from the user
+        let current_entry = quizData.at(currentQuestion_index) // get the current entry based on currentQuestion_index index
+
+        if(user_answer === "Yes") {
+            quiz_poll_data[current_entry.type]++ // add +1 to the entry if user clicked 'Yes' on it
+        }
+        console.log(quiz_poll_data) // check your console to see whice entry has the most 'Yes' answers
+        
+        if (!userAnswer) {
+            return alert('Please select an option!');
+        }
+
+        calculate_entries() // is used to update router_query variable
+     
+        // Effectuez des actions en fonction des réponses de l'utilisateur (par exemple, stockez les réponses, fournissez des commentaires, etc.)
+
+        currentQuestion++;
+        currentQuestion_index++;
+
+        if (currentQuestion < quizData.length) {
+            loadQuestion();
+        } else {
+             // Afficher le résultat lorsque le quiz est terminé
+        showResult();
+        currentQuestion = 0;
+        currentQuestion_index = 0 // reset currentQuestion_index to 0
+        loadQuestion();;
+        }
+    }
+
+    nextButton.addEventListener('pointerdown', checkAnswer);
+
+   
+
+    function showResult() {
+    // Initialize variables to count "Yes" answers in each section
+    // let anxietyYes = 0;
+    // let depressionYes = 0;
+    // let stressYes = 0;
+    // let socialPhobiaYes = 0;
+
+    // Loop through each question in the quiz data
+    // for (let i = 0; i < quizData.length; i++) {
+    //     const userAnswer = document.querySelector(`#options${i} input[name="option"]:checked`);
+    //     if (userAnswer && userAnswer.value === "Yes") {
+    //         // Increment corresponding counter based on the section
+    //         if (i >= 0 && i < 8) {
+    //             // Social Phobia section
+    //             socialPhobiaYes++;
+    //         } else if (i >= 8 && i < 16) {
+    //             // Depression section
+    //             depressionYes++;
+    //         } else if (i >= 16 && i < 24) {
+    //             // Anxiety section
+    //             anxietyYes++;
+    //         } else if (i >= 24 && i < 33) {
+    //             // Stress section
+    //             stressYes++;
+    //         }
+    //     }
+    // }
+
+    // Display the result
+    alert(`Based on your answers, you have: ${calculate_entries()}`);
+}
+    // Chargement initial
+    loadQuestion();
+</script>
+<style>
+    body 
+{
+ font-family: Arial, sans-serif;
+ background-color: #f8f9fa;
+ margin: 0;
+ padding: 0;
+}
+.container {
+ max-width: 600px;
+ margin: 50px auto;
+ padding: 20px;
+ background-color: #ffffff;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 {
+ color: #03392d;
+ text-align: center;
+}
+.question {
+ font-size: 20px;
+ margin-bottom: 20px;
+}
+.options label {
+ display: block;
+ margin-bottom: 10px;
+}
+.btn-primary {
+ background-color: #03392d;
+ border-color: #03392d;
+ color: #ffffff;
+ display: block;
+ margin: 20px auto;
+} 
+header {
+   
+    color: #08552f;
+    text-align: center;
+    padding: 10px 0;
+    header {
+        margin-top: 20px;
+        background-color: #33333300;
+        color: #024219;
+        padding: 10px 0;
+      }
+      
+      .containerr {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: 0 auto;
+      }
+      
+      .brand {
+        font-weight: bold;
+      }
+      
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      nav ul li {
+        display: inline;
+      }
+      
+      nav ul li a {
+        color:  #08552f;;
+        text-decoration: none;
+        padding: 10px 20px;
+      }
+      
+      nav ul li a:hover {
+       color: rgb(217, 255, 0);
+      }
+      
+}
+
+</style>
+</body>
+</html>
